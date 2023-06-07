@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NoticiaService } from './services/noticia.service';
 
 @Component({
   selector: 'app-root',
@@ -6,14 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'noticiasApp';
+  constructor(private _noticiaService: NoticiaService) {}
 
-
-
-  buscarNoticias(parametros:any){
+  buscarNoticias(parametros:any) {
     console.log('soy el padre');
     console.log(parametros);
 
-
+    this._noticiaService.getNoticias(parametros).subscribe(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log('Ocurrió un error al obtener las noticias:', error);
+      }
+    );
   }
 }
